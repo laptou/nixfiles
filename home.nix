@@ -42,6 +42,9 @@
     tree
     slack
     discord
+    jetbrains-mono
+    nerdfonts
+    alt-tab-macos
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -91,6 +94,7 @@
     enable = true;
     shellAliases = {
       switch = "darwin-rebuild switch --flake ~/.config/nix-darwin";
+      devinit = "nix flake init -t github:the-nix-way/dev-templates#$1";
     };
   };
 
@@ -102,7 +106,7 @@
     enable = true;
     userName = "Ibiyemi Abiodun";
     userEmail = "ibiyemi@intulon.com";
-    ignores = [ ".DS_Store" ];
+    ignores = [ ".DS_Store" ".direnv" ];
     lfs.enable = true;
     signing.signByDefault = true;
     signing.key = "576B5BFD3CA393AF536C5FED21DEBD9FED09B62F";
@@ -116,6 +120,7 @@
 
   programs.direnv = {
     enable = true;
+    nix-direnv.enable = true;
   };
 
   programs.kitty = {
@@ -131,6 +136,10 @@
   };
 
   programs.fzf = { 
+    enable = true;
+  };
+
+  programs.zoxide = {
     enable = true;
   };
 }
