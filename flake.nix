@@ -36,7 +36,6 @@
         environment.systemPackages = with pkgs; [
           vim
           micro
-          nushell
         ];
 
         homebrew = {
@@ -60,7 +59,8 @@
         # Create /etc/zshrc that loads the nix-darwin environment.
         programs = {
           gnupg.agent.enable = true;
-          zsh.enable = true; # default shell on catalina
+          gnupg.agent.enableSSHSupport = true;
+          zsh.enable = true;
         };
 
         # disable nix-darwin management of nix b/c it conflicts with determinate nix

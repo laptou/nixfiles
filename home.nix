@@ -34,6 +34,13 @@
     # '')
     telegram-desktop
     nixfmt
+    iterm2
+    ffmpeg
+    gnupg
+    htop
+    jq
+    ripgrep
+    tree
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -95,6 +102,9 @@
     userName = "Ibiyemi Abiodun";
     userEmail = "ibiyemi@intulon.com";
     ignores = [ ".DS_Store" ];
+    lfs.enable = true;
+    signing.signByDefault = true;
+    signing.key = "576B5BFD3CA393AF536C5FED21DEBD9FED09B62F";
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
@@ -122,5 +132,4 @@
   programs.fzf = { 
     enable = true;
   };
-
 }
