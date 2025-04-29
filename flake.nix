@@ -36,9 +36,7 @@
         environment.systemPackages = with pkgs; [
           vim
           micro
-          ffmpeg
-          cargo
-          rustc
+          nushell
         ];
 
         homebrew = {
@@ -87,6 +85,7 @@
         users.users.ibiyemi = {
           name = "ibiyemi";
           home = "/Users/ibiyemi";
+          shell = pkgs.nushell;
         };
 
         system.defaults = {

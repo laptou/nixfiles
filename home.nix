@@ -33,7 +33,6 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     telegram-desktop
-    nushell
     nixfmt
   ];
 
@@ -66,6 +65,10 @@
     # EDITOR = "emacs";
   };
 
+  # home.shell.enableShellIntegration = true;
+  # home.shell.enableZshIntegration = true;
+  # home.shell.enableNushellIntegration = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -85,8 +88,6 @@
 
   programs.broot = {
     enable = true;
-    enableZshIntegration = true;
-    enableNushellIntegration = true;
   };
 
   programs.git = {
@@ -104,8 +105,6 @@
 
   programs.direnv = {
     enable = true;
-    enableZshIntegration = true;
-    enableNushellIntegration = true;
   };
 
   programs.kitty = {
@@ -114,6 +113,14 @@
     #   enableZshIntegration = true;
     #   enableNushellIntegration = true;
     # };
+  };
+
+  programs.lsd = {
+    enable = true;
+  };
+
+  programs.fzf = { 
+    enable = true;
   };
 
 }
