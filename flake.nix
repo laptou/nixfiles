@@ -36,6 +36,7 @@
         environment.systemPackages = with pkgs; [
           vim
           micro
+          gnupg
         ];
 
         homebrew = {
@@ -51,6 +52,7 @@
             "raycast"
             "spotify"
             "rekordbox"
+            "zen-browser"
           ];
 
           masApps = { "Bitwarden" = 1352778147; };
@@ -60,7 +62,12 @@
         programs = {
           gnupg.agent.enable = true;
           gnupg.agent.enableSSHSupport = true;
+          # gnupg.agent.pinentryFlavor = "mac";
           zsh.enable = true;
+        };
+
+        services = {
+          tailscale.enable = true;
         };
 
         # disable nix-darwin management of nix b/c it conflicts with determinate nix

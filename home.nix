@@ -36,11 +36,12 @@
     nixfmt
     iterm2
     ffmpeg
-    gnupg
     htop
     jq
     ripgrep
     tree
+    slack
+    discord
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
