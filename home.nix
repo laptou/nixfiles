@@ -15,7 +15,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -32,9 +32,10 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    telegram-desktop
+    nushell
+    nixfmt
   ];
-
-  
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -68,21 +69,51 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.nushell = {
+    enable = true;
+    shellAliases = {
+      switch = "darwin-rebuild switch --flake ~/.config/nix-darwin";
+    };
+  };
+
   programs.zsh = {
-      enable = true;
-      shellAliases = {
-          switch = "darwin-rebuild switch --flake ~/.config/nix-darwin";
-      };
+    enable = true;
+    shellAliases = {
+      switch = "darwin-rebuild switch --flake ~/.config/nix-darwin";
+    };
+  };
+
+  programs.broot = {
+    enable = true;
+    enableZshIntegration = true;
+    enableNushellIntegration = true;
   };
 
   programs.git = {
-      enable = true;
-      userName = "Ibiyemi Abiodun";
-      userEmail = "ibiyemi@intulon.com";
-      ignores = [ ".DS_Store" ];
-      extraConfig = {
-          init.defaultBranch = "main";
-          push.autoSetupRemote = true;
-      };
+    enable = true;
+    userName = "Ibiyemi Abiodun";
+    userEmail = "ibiyemi@intulon.com";
+    ignores = [ ".DS_Store" ];
+    extraConfig = {
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+    };
   };
+
+  programs.bun = { enable = true; };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    enableNushellIntegration = true;
+  };
+
+  programs.kitty = {
+    enable = true;
+    # shellIntegration = {
+    #   enableZshIntegration = true;
+    #   enableNushellIntegration = true;
+    # };
+  };
+
 }
