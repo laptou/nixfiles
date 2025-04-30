@@ -35,7 +35,6 @@
 
         environment.systemPackages = with pkgs; [
           vim
-          micro
           gnupg
         ];
 
@@ -53,6 +52,8 @@
             "spotify"
             "rekordbox"
             "zen-browser"
+            "chromium"
+            "ghostty"
           ];
 
           masApps = { "Bitwarden" = 1352778147; };

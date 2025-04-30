@@ -92,10 +92,19 @@
 
   programs.zsh = {
     enable = true;
+    autosuggestion.enable = true;
+    historySubstringSearch.enable = true;
+    syntaxHighlighting.enable = true;
+    initExtra = ''
+      devinit() { nix flake init -t github:the-nix-way/dev-templates#$1; direnv allow; }
+    '';
     shellAliases = {
       switch = "darwin-rebuild switch --flake ~/.config/nix-darwin";
-      devinit = "nix flake init -t github:the-nix-way/dev-templates#$1";
     };
+  };
+
+  programs.micro = {
+    enable = true;
   };
 
   programs.broot = {
