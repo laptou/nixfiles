@@ -33,10 +33,7 @@
       configuration = { pkgs, ... }: {
         security.pam.enableSudoTouchIdAuth = true;
 
-        environment.systemPackages = with pkgs; [
-          vim
-          gnupg
-        ];
+        environment.systemPackages = with pkgs; [ vim gnupg ];
 
         homebrew = {
           enable = true;
@@ -52,8 +49,12 @@
             "spotify"
             "rekordbox"
             "zen-browser"
-            "chromium"
             "ghostty"
+            "google-chrome"
+            # {
+            #   name = "chromium";
+            #   args = { no_quarantine = true; };
+            # }
           ];
 
           masApps = { "Bitwarden" = 1352778147; };
@@ -67,9 +68,7 @@
           zsh.enable = true;
         };
 
-        services = {
-          tailscale.enable = true;
-        };
+        services = { tailscale.enable = true; };
 
         # disable nix-darwin management of nix b/c it conflicts with determinate nix
         nix.enable = false;
