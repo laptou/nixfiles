@@ -58,7 +58,10 @@
             # }
           ];
 
-          masApps = { "Bitwarden" = 1352778147; };
+          masApps = {
+            "Bitwarden" = 1352778147;
+            "reMarkable" = 1276493162;
+          };
         };
 
         # Create /etc/zshrc that loads the nix-darwin environment.
