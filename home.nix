@@ -45,6 +45,7 @@
     jetbrains-mono
     nerdfonts
     alt-tab-macos
+    uv
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -97,6 +98,7 @@
     syntaxHighlighting.enable = true;
     initExtra = ''
       devinit() { nix flake init -t github:the-nix-way/dev-templates#$1; direnv allow; }
+      export PATH="$(uv tool dir):$PATH"
     '';
     shellAliases = {
       switch = "darwin-rebuild switch --flake ~/.config/nix-darwin";

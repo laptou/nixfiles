@@ -40,7 +40,7 @@
           onActivation.cleanup = "uninstall";
 
           taps = [ ];
-          brews = [ ];
+          brews = [ "cocoapods" ];
           casks = [
             "cursor"
             "visual-studio-code"
@@ -51,6 +51,7 @@
             "zen-browser"
             "ghostty"
             "google-chrome"
+            "betterdisplay"
             # {
             #   name = "chromium";
             #   args = { no_quarantine = true; };
