@@ -33,8 +33,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     telegram-desktop
-    nixfmt
-    iterm2
+    nixfmt-classic
     ffmpeg
     htop
     jq
@@ -46,6 +45,8 @@
     nerdfonts
     alt-tab-macos
     uv
+    nil
+    nixd
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -153,5 +154,9 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.vscode = {
+    enable = true;
   };
 }
