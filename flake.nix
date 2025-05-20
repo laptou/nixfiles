@@ -40,10 +40,10 @@
           onActivation.cleanup = "uninstall";
 
           taps = [ ];
-          brews = [ "cocoapods" ];
+          brews = [ "cocoapods" "llvm" ];
           casks = [
             "cursor"
-            "visual-studio-code"
+            # "visual-studio-code"
             "zed"
             "raycast"
             "spotify"
@@ -52,6 +52,8 @@
             "ghostty"
             "google-chrome"
             "betterdisplay"
+            "blender"
+            # "llvm"
             # {
             #   name = "chromium";
             #   args = { no_quarantine = true; };
