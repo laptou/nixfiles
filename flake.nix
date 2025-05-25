@@ -43,6 +43,7 @@
           brews = [ "cocoapods" "llvm" ];
           casks = [
             "cursor"
+            "qbittorrent"
             # "visual-studio-code"
             "zed"
             "raycast"
@@ -53,6 +54,7 @@
             "google-chrome"
             "betterdisplay"
             "blender"
+            "kicad"
             # "llvm"
             # {
             #   name = "chromium";
