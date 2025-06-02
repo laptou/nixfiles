@@ -2,10 +2,10 @@
   description = "nix-darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-homebrew = {
@@ -31,7 +31,7 @@
     , homebrew-core, homebrew-cask, homebrew-bundle }:
     let
       configuration = { pkgs, ... }: {
-        security.pam.enableSudoTouchIdAuth = true;
+        security.pam.services.sudo_local.touchIdAuth = true;
 
         environment.systemPackages = with pkgs; [ vim gnupg ];
 
@@ -55,6 +55,7 @@
             "betterdisplay"
             "blender"
             "kicad"
+            "zen"
             # "llvm"
             # {
             #   name = "chromium";
@@ -100,9 +101,14 @@
         users.users.ibiyemi = {
           name = "ibiyemi";
           home = "/Users/ibiyemi";
-          shell = pkgs.nushell;
+          shell = pkgs.zsh;
+          # shell = pkgs.nushell;
+
+          # homebrew.enable = true;
+
         };
 
+        system.primaryUser = "ibiyemi";
         system.defaults = {
           # a finder that tells me what I want to know and lets me work
           finder = {

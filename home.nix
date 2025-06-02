@@ -42,7 +42,7 @@
     slack
     discord
     jetbrains-mono
-    nerdfonts
+    # nerdfonts
     alt-tab-macos
     uv
     nil
@@ -97,7 +97,7 @@
     autosuggestion.enable = true;
     historySubstringSearch.enable = true;
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    initContent = ''
       devinit() { nix flake init -t github:the-nix-way/dev-templates#$1; direnv allow; }
       export PATH="$(uv tool dir):$PATH"
     '';
