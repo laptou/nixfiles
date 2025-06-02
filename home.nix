@@ -102,7 +102,7 @@
       export PATH="$(uv tool dir):$PATH"
     '';
     shellAliases = {
-      switch = "darwin-rebuild switch --flake ~/.config/nix-darwin";
+      switch = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
     };
   };
 
