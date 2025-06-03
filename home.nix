@@ -47,6 +47,7 @@
     uv
     nil
     nixd
+    nrfutil
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

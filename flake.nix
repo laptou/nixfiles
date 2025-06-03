@@ -40,7 +40,7 @@
           onActivation.cleanup = "uninstall";
 
           taps = [ ];
-          brews = [ "cocoapods" "llvm" ];
+          brews = [ "cocoapods" "llvm" "biome" ];
           casks = [
             "cursor"
             "qbittorrent"
@@ -56,6 +56,7 @@
             "blender"
             "kicad"
             "zen"
+            "segger-jlink"
             # "llvm"
             # {
             #   name = "chromium";
@@ -97,6 +98,11 @@
         # The platform the configuration will be used on.
         nixpkgs.hostPlatform = "aarch64-darwin";
         nixpkgs.config.allowUnfree = true;
+        nixpkgs.overlays = [
+          (final: prev: {
+            nrfutil = final.callPackage ./pkgs/nrfutil.nix {};
+          })
+        ];
 
         users.users.ibiyemi = {
           name = "ibiyemi";
