@@ -57,6 +57,11 @@
             "kicad"
             "zen"
             "segger-jlink"
+            "figma"
+            "figma-agent"
+            "sublime-merge"
+            "nomachine"
+            "alt-tab"
             # "llvm"
             # {
             #   name = "chromium";

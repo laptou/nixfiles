@@ -48,6 +48,8 @@
     nil
     nixd
     nrfutil
+    google-cloud-sdk
+    ghidra
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -100,7 +102,7 @@
     syntaxHighlighting.enable = true;
     initContent = ''
       devinit() { nix flake init -t github:the-nix-way/dev-templates#$1; direnv allow; }
-      export PATH="$(uv tool dir):$PATH"
+      export PATH="/Users/ibiyemi/.local/bin:$PATH"
     '';
     shellAliases = {
       switch = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
