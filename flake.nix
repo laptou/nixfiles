@@ -62,6 +62,9 @@
             "sublime-merge"
             "nomachine"
             "alt-tab"
+            "mullvad-vpn"
+            "ollama"
+            "notion"
             # "llvm"
             # {
             #   name = "chromium";
