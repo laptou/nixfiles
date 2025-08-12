@@ -63,7 +63,7 @@
             "nomachine"
             "alt-tab"
             "mullvad-vpn"
-            "ollama"
+            # "ollama"
             "notion"
             # "llvm"
             # {

@@ -50,6 +50,8 @@
     nrfutil
     google-cloud-sdk
     ghidra
+    git-filter-repo
+    kondo
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
