@@ -40,7 +40,7 @@
           onActivation.cleanup = "uninstall";
 
           taps = [ ];
-          brews = [ "cocoapods" "llvm" "biome" ];
+          brews = [ "cocoapods" "llvm" "biome" "pinentry-mac" ];
           casks = [
             "cursor"
             "qbittorrent"
@@ -82,7 +82,6 @@
         programs = {
           gnupg.agent.enable = true;
           gnupg.agent.enableSSHSupport = true;
-          # gnupg.agent.pinentryFlavor = "mac";
           zsh.enable = true;
         };
 
@@ -107,9 +106,7 @@
         nixpkgs.hostPlatform = "aarch64-darwin";
         nixpkgs.config.allowUnfree = true;
         nixpkgs.overlays = [
-          (final: prev: {
-            nrfutil = final.callPackage ./pkgs/nrfutil.nix {};
-          })
+          (final: prev: { nrfutil = final.callPackage ./pkgs/nrfutil.nix { }; })
         ];
 
         users.users.ibiyemi = {

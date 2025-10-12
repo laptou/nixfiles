@@ -52,6 +52,9 @@
     ghidra
     git-filter-repo
     kondo
+    du-dust
+    blueutil
+    jdk
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -97,6 +100,11 @@
     };
   };
 
+  programs.java = {
+    enable = true;
+    # package = pkgs.jdk;
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -110,7 +118,6 @@
       switch = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
     };
   };
-
   programs.micro = {
     enable = true;
   };
