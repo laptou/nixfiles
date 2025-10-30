@@ -49,7 +49,7 @@
             "raycast"
             "spotify"
             "rekordbox"
-            "zen-browser"
+            "zen"
             "ghostty"
             "google-chrome"
             "betterdisplay"
