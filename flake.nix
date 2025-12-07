@@ -2,10 +2,10 @@
   description = "nix-darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
@@ -27,16 +27,22 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nix-homebrew
     , homebrew-core, homebrew-cask, homebrew-bundle }:
     let
-      configuration = { pkgs, ... }: {
+      configuration = { pkgs, config, ... }: {
         security.pam.services.sudo_local.touchIdAuth = true;
 
         environment.systemPackages = with pkgs; [ vim gnupg ];
 
         homebrew = {
           enable = true;
-          onActivation.cleanup = "uninstall";
+          onActivation = {
+            cleanup = "uninstall";
+            autoUpdate = true;
+            upgrade = true;
+          };
 
-          taps = [ ];
+          global.autoUpdate = false;
+
+          taps = builtins.attrNames config.nix-homebrew.taps;
           brews = [
             "cocoapods"
             "llvm"
