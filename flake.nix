@@ -37,7 +37,16 @@
           onActivation.cleanup = "uninstall";
 
           taps = [ ];
-          brews = [ "cocoapods" "llvm" "biome" "pinentry-mac" ];
+          brews = [
+            "cocoapods"
+            "llvm"
+            "biome"
+            "pinentry-mac"
+            "xcbeautify"
+            "xcode-build-server"
+            "swiftformat"
+            "xcodegen"
+          ];
           casks = [
             "cursor"
             "qbittorrent"
@@ -53,7 +62,7 @@
             "blender"
             "kicad"
             "zen"
-            "segger-jlink"
+            # "segger-jlink"
             "figma"
             "figma-agent"
             "sublime-merge"
@@ -62,6 +71,7 @@
             "mullvad-vpn"
             # "ollama"
             "notion"
+            "tuist"
             # "llvm"
             # {
             #   name = "chromium";

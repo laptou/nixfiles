@@ -57,7 +57,6 @@
     jdk
     android-tools
     swiftlint
-    tuist
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -116,6 +115,7 @@
     initContent = ''
       devinit() { nix flake init -t github:the-nix-way/dev-templates#$1; direnv allow; }
       export PATH="/Users/ibiyemi/.local/bin:$PATH"
+      export WORDCHARS='*?[]~=&;!#$%^(){}<>_'
     '';
     shellAliases = {
       switch = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
