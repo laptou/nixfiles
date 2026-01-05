@@ -58,6 +58,8 @@
     jdk
     android-tools
     swiftlint
+   	libwebp
+    imagemagick
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -128,14 +130,14 @@
 
   programs.git = {
     enable = true;
-    # settings = {
-    #   user = {
-    #     name = "Ibiyemi Abiodun";
-    #     email = "ibiyemi@intulon.com";
-    #   };
-    #   init.defaultBranch = "main";
-    #   push.autoSetupRemote = true;
-    # };
+    settings = {
+      user = {
+        name = "Ibiyemi Abiodun";
+        email = "ibiyemi@intulon.com";
+      };
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+    };
 
     ignores = [ ".DS_Store" ".direnv" ];
     lfs.enable = true;

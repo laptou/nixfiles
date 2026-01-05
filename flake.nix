@@ -119,7 +119,14 @@
         nixpkgs.hostPlatform = "aarch64-darwin";
         nixpkgs.config.allowUnfree = true;
         nixpkgs.overlays = [
-          (final: prev: { nrfutil = final.callPackage ./pkgs/nrfutil.nix { }; })
+          (final: prev: { 
+            nrfutil = final.callPackage ./pkgs/nrfutil.nix { }; 
+
+            # tailscale build-time checks are broken as of 2026-01-05, preventing system updates
+            tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
+              doCheck = false;
+            });
+          })
         ];
 
         users.users.ibiyemi = {
