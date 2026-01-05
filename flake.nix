@@ -126,6 +126,22 @@
             tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
               doCheck = false;
             });
+
+            telegram-desktop-unwrapped = prev.telegram-desktop.unwrapped.overrideAttrs (oldAttrs: {
+                version = "6.4.0";
+                src = prev.fetchFromGitHub {
+                  owner = "telegramdesktop";
+                  repo = "tdesktop";
+                  rev = "v6.4.0";
+                  fetchSubmodules = true;
+                  hash = "sha256-0d5PFo0tv8yayHqsd44gvodgbyRb1b5IPXtJahkWjHU=";
+                };
+            });
+
+            # Override the wrapper to use our updated unwrapped version
+            telegram-desktop = prev.telegram-desktop.override {
+              unwrapped = final.telegram-desktop-unwrapped;
+            };
           })
         ];
 
