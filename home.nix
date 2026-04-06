@@ -60,6 +60,14 @@
     swiftlint
    	libwebp
     imagemagick
+    awscli2
+    gh
+    ansifilter
+    watch
+    nix-du
+    nix-tree
+    graphviz
+    nmap
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -118,7 +126,8 @@
     initContent = ''
       devinit() { nix flake init -t github:the-nix-way/dev-templates#$1; direnv allow; }
       export PATH="/Users/ibiyemi/.local/bin:$PATH"
-      export WORDCHARS='*?[]~=&;!#$%^(){}<>_'
+      export WORDCHARS='*?[]~=&;!#$%^(){}<>_/'
+      export PATH="/Users/ibiyemi/.opencode/bin:$PATH"
     '';
     shellAliases = {
       switch = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
@@ -137,6 +146,7 @@
       };
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
+      core.excludesfile = "~/.gitignore_global";
     };
 
     ignores = [ ".DS_Store" ".direnv" ];

@@ -10,6 +10,11 @@
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
+    omnisearch = {
+      url = "git+https://git.bwaaa.monster/omnisearch";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -24,153 +29,174 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nix-homebrew
-    , homebrew-core, homebrew-cask, homebrew-bundle }:
+  outputs =
+    inputs@{
+      self,
+      nix-darwin,
+      nixpkgs,
+      home-manager,
+      nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
+      homebrew-bundle,
+      omnisearch,
+    }:
     let
-      configuration = { pkgs, config, ... }: {
-        security.pam.services.sudo_local.touchIdAuth = true;
+      configuration =
+        { pkgs, config, ... }:
+        {
+          security.pam.services.sudo_local.touchIdAuth = true;
 
-        environment.systemPackages = with pkgs; [ vim gnupg ];
-
-        homebrew = {
-          enable = true;
-          onActivation = {
-            cleanup = "uninstall";
-            autoUpdate = true;
-            upgrade = true;
-          };
-
-          global.autoUpdate = false;
-
-          taps = builtins.attrNames config.nix-homebrew.taps;
-          brews = [
-            "cocoapods"
-            "llvm"
-            "biome"
-            "pinentry-mac"
-            "xcbeautify"
-            "xcode-build-server"
-            "swiftformat"
-            "xcodegen"
-          ];
-          casks = [
-            "cursor"
-            "qbittorrent"
-            # "visual-studio-code"
-            "zed"
-            "raycast"
-            "spotify"
-            "rekordbox"
-            "zen"
-            "ghostty"
-            "google-chrome"
-            "betterdisplay"
-            "blender"
-            "kicad"
-            "zen"
-            # "segger-jlink"
-            "figma"
-            "figma-agent"
-            "sublime-merge"
-            "nomachine"
-            "alt-tab"
-            "mullvad-vpn"
-            # "ollama"
-            "notion"
-            "tuist"
-            # "llvm"
-            # {
-            #   name = "chromium";
-            #   args = { no_quarantine = true; };
-            # }
+          environment.systemPackages = with pkgs; [
+            vim
+            gnupg
           ];
 
-          masApps = {
-            "Bitwarden" = 1352778147;
-            "reMarkable" = 1276493162;
-          };
-        };
-
-        # Create /etc/zshrc that loads the nix-darwin environment.
-        programs = {
-          gnupg.agent.enable = true;
-          gnupg.agent.enableSSHSupport = true;
-          zsh.enable = true;
-        };
-
-        services = { tailscale.enable = true; };
-
-        # disable nix-darwin management of nix b/c it conflicts with determinate nix
-        nix.enable = false;
-        # Necessary for using flakes on this system.
-        nix.settings.experimental-features = "nix-command flakes";
-
-        # Enable alternative shell support in nix-darwin.
-        # programs.fish.enable = true;
-
-        # Set Git commit hash for darwin-version.
-        system.configurationRevision = self.rev or self.dirtyRev or null;
-
-        # Used for backwards compatibility, please read the changelog before changing.
-        # $ darwin-rebuild changelog
-        system.stateVersion = 6;
-
-        # The platform the configuration will be used on.
-        nixpkgs.hostPlatform = "aarch64-darwin";
-        nixpkgs.config.allowUnfree = true;
-        nixpkgs.overlays = [
-          (final: prev: { 
-            nrfutil = final.callPackage ./pkgs/nrfutil.nix { }; 
-
-            # tailscale build-time checks are broken as of 2026-01-05, preventing system updates
-            tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
-              doCheck = false;
-            });
-
-            telegram-desktop-unwrapped = prev.telegram-desktop.unwrapped.overrideAttrs (oldAttrs: {
-                version = "6.4.0";
-                src = prev.fetchFromGitHub {
-                  owner = "telegramdesktop";
-                  repo = "tdesktop";
-                  rev = "v6.4.0";
-                  fetchSubmodules = true;
-                  hash = "sha256-0d5PFo0tv8yayHqsd44gvodgbyRb1b5IPXtJahkWjHU=";
-                };
-            });
-
-            # Override the wrapper to use our updated unwrapped version
-            telegram-desktop = prev.telegram-desktop.override {
-              unwrapped = final.telegram-desktop-unwrapped;
+          homebrew = {
+            enable = true;
+            onActivation = {
+              cleanup = "uninstall";
+              autoUpdate = true;
+              upgrade = true;
             };
-          })
-        ];
 
-        users.users.ibiyemi = {
-          name = "ibiyemi";
-          home = "/Users/ibiyemi";
-          shell = pkgs.zsh;
-          # shell = pkgs.nushell;
+            global.autoUpdate = false;
 
-          # homebrew.enable = true;
+            taps = builtins.attrNames config.nix-homebrew.taps;
+            brews = [
+              "cocoapods"
+              "llvm"
+              "biome"
+              "pinentry-mac"
+              "xcbeautify"
+              "xcode-build-server"
+              "swiftformat"
+              "xcodegen"
+              "weave"
+              "sem-cli"
+            ];
+            casks = [
+              "cursor"
+              "qbittorrent"
+              # "visual-studio-code"
+              "zed"
+              "raycast"
+              "spotify"
+              "rekordbox"
+              "zen"
+              "ghostty"
+              "google-chrome"
+              "betterdisplay"
+              "blender"
+              "kicad"
+              "zen"
+              # "segger-jlink"
+              "figma"
+              "figma-agent"
+              "sublime-merge"
+              "nomachine"
+              "alt-tab"
+              "mullvad-vpn"
+              # "ollama"
+              "notion"
+              "tuist"
+              # "llvm"
+              # {
+              #   name = "chromium";
+              #   args = { no_quarantine = true; };
+              # }
+            ];
 
-        };
-
-        system.primaryUser = "ibiyemi";
-        system.defaults = {
-          # a finder that tells me what I want to know and lets me work
-          finder = {
-            AppleShowAllExtensions = true;
-            ShowPathbar = true;
-            FXEnableExtensionChangeWarning = false;
+            masApps = {
+              "Bitwarden" = 1352778147;
+              "reMarkable" = 1276493162;
+            };
           };
-          # Tab between form controls and F-row that behaves as F1-F12
-          NSGlobalDomain = {
-            AppleKeyboardUIMode = 3;
-            "com.apple.keyboard.fnState" = true;
+
+          # Create /etc/zshrc that loads the nix-darwin environment.
+          programs = {
+            gnupg.agent.enable = true;
+            gnupg.agent.enableSSHSupport = true;
+            zsh.enable = true;
+          };
+
+          services = {
+            tailscale.enable = true;
+            # omnisearch.enable = true;
+          };
+
+          # disable nix-darwin management of nix b/c it conflicts with determinate nix
+          nix.enable = false;
+          # Necessary for using flakes on this system.
+          nix.settings.experimental-features = "nix-command flakes";
+
+          # Enable alternative shell support in nix-darwin.
+          # programs.fish.enable = true;
+
+          # Set Git commit hash for darwin-version.
+          system.configurationRevision = self.rev or self.dirtyRev or null;
+
+          # Used for backwards compatibility, please read the changelog before changing.
+          # $ darwin-rebuild changelog
+          system.stateVersion = 6;
+
+          # The platform the configuration will be used on.
+          nixpkgs.hostPlatform = "aarch64-darwin";
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = [
+            (final: prev: {
+              nrfutil = final.callPackage ./pkgs/nrfutil.nix { };
+
+              # tailscale build-time checks are broken as of 2026-01-05, preventing system updates
+              tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
+                doCheck = false;
+              });
+
+              #             telegram-desktop-unwrapped = prev.telegram-desktop.unwrapped.overrideAttrs (oldAttrs: {
+              #                 version = "6.4.0";
+              #                 src = prev.fetchFromGitHub {
+              #                   owner = "telegramdesktop";
+              #                   repo = "tdesktop";
+              #                   rev = "v6.4.0";
+              #                   fetchSubmodules = true;
+              #                   hash = "sha256-hrBRlepDcpsJbjpDfL/1KoYC1WjMoNAuxppGNP9pRZ4=";
+              #                 };
+              #             });
+              #
+              #             # Override the wrapper to use our updated unwrapped version
+              #             telegram-desktop = prev.telegram-desktop.override {
+              #               unwrapped = final.telegram-desktop-unwrapped;
+              #             };
+            })
+          ];
+
+          users.users.ibiyemi = {
+            name = "ibiyemi";
+            home = "/Users/ibiyemi";
+            shell = pkgs.zsh;
+            # shell = pkgs.nushell;
+
+            # homebrew.enable = true;
+
+          };
+
+          system.primaryUser = "ibiyemi";
+          system.defaults = {
+            # a finder that tells me what I want to know and lets me work
+            finder = {
+              AppleShowAllExtensions = true;
+              ShowPathbar = true;
+              FXEnableExtensionChangeWarning = false;
+            };
+            # Tab between form controls and F-row that behaves as F1-F12
+            NSGlobalDomain = {
+              AppleKeyboardUIMode = 3;
+              "com.apple.keyboard.fnState" = true;
+            };
           };
         };
-      };
-    in {
+    in
+    {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#ibimbp
       darwinConfigurations."ibimbp" = nix-darwin.lib.darwinSystem {
