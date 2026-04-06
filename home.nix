@@ -32,7 +32,7 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    telegram-desktop
+    # telegram-desktop
     nixfmt-classic
     ffmpeg
     htop
@@ -58,7 +58,7 @@
     jdk
     android-tools
     swiftlint
-   	libwebp
+    libwebp
     imagemagick
     awscli2
     gh
@@ -133,9 +133,13 @@
       switch = "sudo darwin-rebuild switch --flake ~/.config/nix-darwin";
     };
   };
-  programs.micro = { enable = true; };
+  programs.micro = {
+    enable = true;
+  };
 
-  programs.broot = { enable = true; };
+  programs.broot = {
+    enable = true;
+  };
 
   programs.git = {
     enable = true;
@@ -149,7 +153,10 @@
       core.excludesfile = "~/.gitignore_global";
     };
 
-    ignores = [ ".DS_Store" ".direnv" ];
+    ignores = [
+      ".DS_Store"
+      ".direnv"
+    ];
     lfs.enable = true;
     signing.signByDefault = true;
     signing.key = "576B5BFD3CA393AF536C5FED21DEBD9FED09B62F";
@@ -164,7 +171,9 @@
     # };
   };
 
-  programs.bun = { enable = true; };
+  programs.bun = {
+    enable = true;
+  };
 
   programs.direnv = {
     enable = true;
@@ -179,14 +188,20 @@
     # };
   };
 
-  programs.lsd = { enable = true; };
+  programs.lsd = {
+    enable = true;
+  };
 
-  programs.fzf = { enable = true; };
+  programs.fzf = {
+    enable = true;
+  };
 
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
   };
 
-  programs.vscode = { enable = true; };
+  programs.vscode = {
+    enable = true;
+  };
 }
